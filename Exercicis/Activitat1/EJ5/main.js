@@ -1,39 +1,55 @@
 //Afegeix en aquest fitxer Js tot el codi necessari per a l'exercici
 
-//EJ5
-if(localStorage.getItem("contadorGlobal") == null){
-    localStorage.setItem("contadorGlobal", 0);
+// EJ5
+let formulario = document.getElementById("formulario")
+let textContador = document.getElementById("textContador")
+let btnContador = document.getElementById("btnContador")
+
+let valorGuardado = localStorage.getItem("contadorGlobal")
+
+if (valorGuardado === null) {
+    mostrarFormulari()
+} else {
+    mostrarContador(parseInt(valorGuardado, 10))
 }
 
-let formulario = document.getElementById("formulario")
-
-formulario.addEventListener("submit", (event) =>{
+formulario.addEventListener("submit", (event) => {
     event.preventDefault()
-    formulario.style.display = "none"
 
-    let contador = document.getElementById("numero").value
+    let valor = parseInt(document.getElementById("numero").value, 10)
 
-    let textContador = document.getElementById("textContador")
-    textContador.classList.remove("textContador")
+    if (Number.isNaN(valor) || valor <= 0) {
+        alert("Introdueix un número vàlid (major que 0)")
+        return
+    }
 
-    let btnContador = document.getElementById("btnContador")
-    btnContador.classList.remove("btnContador")
-
-    textContador.textContent = contador
-
-    btnContador.addEventListener("click", () =>{
-        contador--
-        if(contador === 0){
-            textContador.textContent = "Has arribat  a 0!"
-            btnContador.classList.add("btnContador")
-        }else{
-            textContador.textContent = contador
-        }
-    })
+    localStorage.setItem("contadorGlobal", String(valor))
+    mostrarContador(valor)
 })
 
+function mostrarFormulari() {
+    formulario.style.display = ""
+    textContador.classList.add("textContador")
+    btnContador.classList.add("btnContador")
+}
 
+function mostrarContador(valorInicial) {
+    formulario.style.display = "none"
+    textContador.classList.remove("textContador")
+    btnContador.classList.remove("btnContador")
 
+    let contadorGlobal = valorInicial
+    textContador.textContent = "El contador es: " + contadorGlobal
 
+    btnContador.addEventListener("click", () => {
+        contadorGlobal--
 
-
+        if (contadorGlobal <= 0) {
+            textContador.textContent = "Zero reached!"
+            localStorage.removeItem("contadorGlobal")
+        } else {
+            textContador.textContent = "El contador es: " + contadorGlobal
+            localStorage.setItem("contadorGlobal", String(contadorGlobal))
+        }
+    })
+}
