@@ -4,7 +4,15 @@
 
 let contador = 0
 
+let container = document.querySelector("main")
+
+let div = document.createElement("div")
+
+container.append(div)
+
 let btnContador = document.createElement("button")
+
+
 div.appendChild(btnContador)
 
 let pContador = document.createElement("p")
