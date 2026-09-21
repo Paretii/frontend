@@ -15,12 +15,16 @@ formulario.addEventListener("submit", (event) =>{
 
     let btnContador = document.getElementById("btnContador")
     btnContador.classList.remove("btnContador")
-
+    if (contador <= 0) {
+        textContador.textContent = "Zero reached!"
+        btnContador.classList.add("btnContador")
+        return
+    }
     textContador.textContent = contador
 
     btnContador.addEventListener("click", () =>{
         contador--
-        if(contador === 0){
+        if(contador <= 0){
             textContador.textContent = "Has arribat  a 0!"
             btnContador.classList.add("btnContador")
         }else{

@@ -22,7 +22,7 @@ formulario.addEventListener("submit", (event) =>{
     const intervalId = setInterval(() => {
         contador--;
         if (contador <= 0) {
-            textContador.textContent = "Zero reached!"
+            textContador.textContent = "Has arribat  a 0!"
             clearInterval(intervalId);
         }else{
             textContador.textContent = "Segons restants " + contador
