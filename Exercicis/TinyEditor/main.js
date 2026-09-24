@@ -24,9 +24,9 @@ function actualizarContador() {
 }
 
 function actualizarEstadoReplace() {
-    let buscar = inputBuscar.value.trim()
-    let remplazar = inputRemplazar.value.trim()
-    btnReplaceAll.disabled = (buscar === "" || remplazar === "")
+    palabraBuscar = document.getElementById("fromtxt").value.trim()
+    plabraRemplazar = document.getElementById("totxt").value.trim()
+    btnReplaceAll.disabled = (palabraBuscar === "" || plabraRemplazar === "")
 }
 
 actualizarContador()
@@ -43,8 +43,8 @@ btnClear.addEventListener("click", function(){
 })
 
 btnReplaceAll.addEventListener("click", function(){
-    palabraBuscar = document.getElementById("fromtxt").value
-    plabraRemplazar = document.getElementById("totxt").value
+    palabraBuscar = document.getElementById("fromtxt").value.trim()
+    plabraRemplazar = document.getElementById("totxt").value.trim()
     let split = textarea.value.split(" ")
     for( let i = 0; i < split.length; i++){
         if (split[i].toLowerCase() === palabraBuscar.toLowerCase()){
