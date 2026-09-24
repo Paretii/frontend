@@ -6,6 +6,10 @@ let textarea = document.getElementById("content")
 
 let countText =document.getElementById("count")
 
+let inputBuscar = document.getElementById("fromtxt")
+
+let inputRemplazar = document.getElementById("totxt")
+
 let palabraBuscar = document.getElementById("fromtxt").value
 
 let plabraRemplazar = document.getElementById("totxt").value
@@ -14,34 +18,40 @@ let btnReplaceAll = document.getElementById("replace")
 
 let btnClear = document.getElementById("clear")
 
-countText.textContent = textarea.value.length
-if(textarea.value.length <= 0){
-    btnClear.setAttribute("disabled", "true")
-}else{
-    btnClear.removeAttribute("disabled")
-}
-textarea.addEventListener("input", function (event) {
+function actualizarContador() {
     countText.textContent = textarea.value.length
-    if(textarea.value.length <= 0){
-        btnClear.setAttribute("disabled", "true")
-    }else{
-        btnClear.removeAttribute("disabled")
-    }
-})
+    btnClear.disabled = textarea.value.length <= 0
+}
+
+function actualizarEstadoReplace() {
+    let buscar = inputBuscar.value.trim()
+    let remplazar = inputRemplazar.value.trim()
+    btnReplaceAll.disabled = (buscar === "" || remplazar === "")
+}
+
+actualizarContador()
+actualizarEstadoReplace()
+
+textarea.addEventListener("input", actualizarContador)
+inputBuscar.addEventListener("input", actualizarEstadoReplace)
+inputRemplazar.addEventListener("input", actualizarEstadoReplace)
+
+
 btnClear.addEventListener("click", function(){
     textarea.value = "";
-    countText.textContent = textarea.value.length
-    btnClear.setAttribute("disabled", "true")
+    actualizarContador()
 })
 
 btnReplaceAll.addEventListener("click", function(){
-    let split = textarea.value.split(" ")    
+    palabraBuscar = document.getElementById("fromtxt").value
+    plabraRemplazar = document.getElementById("totxt").value
+    let split = textarea.value.split(" ")
     for( let i = 0; i < split.length; i++){
         if (split[i].toLowerCase() === palabraBuscar.toLowerCase()){
             split[i] = plabraRemplazar
         }
     }
     textarea.value = split.join(" ")
-    
+    actualizarContador()
 })
 
