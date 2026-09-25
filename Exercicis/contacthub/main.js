@@ -1,8 +1,18 @@
 let container = document.getElementById("contenidor-contactes");
 let inputBuscar = document.createElement("input");
 inputBuscar.type = "search";
-inputBuscar.placeholder="Cercar per nom o email";
+inputBuscar.placeholder = "Cercar per nom o email";
 container.append(inputBuscar);
+let btnFilterFav = document.createElement("button");
+btnFilterFav.textContent = "Mostrar nomes favorits ⭐"
+btnFilterFav.className = "outline";
+btnFilterFav.dataset.tipoBtn = "FilterFav"
+btnFilterFav.dataset.actiu = "false"
+container.append(btnFilterFav);
+let btnRecuperar = document.createElement("button");
+btnRecuperar.textContent = "🔄  Restablir Contactes";
+btnRecuperar.className = "outline secondary";
+container.append(btnRecuperar);
 let divArticle = document.createElement("div");
 container.append(divArticle);
 
@@ -10,37 +20,103 @@ container.append(divArticle);
 async function obtenirUsuaris() {
     try {
         console.log("Iniciant petició...")
-        const resposta = await fetch("https://dummyjson.com/users")
-        if (!resposta.ok) {
-            throw new Error(`Error en la petició: ${resposta.status}`)
+        if (localStorage.getItem("usuaris") === null) {
+            const resposta = await fetch("https://dummyjson.com/users")
+            if (!resposta.ok) {
+                throw new Error(`Error en la petició: ${resposta.status}`)
+            }
+            const datos = await resposta.json()
+            const usuaris = datos.users
+            usuaris.forEach(usuari => {
+                usuari.favorit = false
+            })
+            localStorage.setItem("usuaris", JSON.stringify(usuaris))
         }
-        const usuaris =  await resposta.json()
+        const usuaris = JSON.parse(localStorage.getItem("usuaris"))
+            
         
-        divArticle.innerHTML = ""
-        
-        for (const usua of usuaris.users) {
-            crearCarta(usua)
-        }
+        console.log(usuaris)
+
+        mostrarCartas(usuaris)
+
         inputBuscar.addEventListener("input", (event) => {
-            let filtrados = usuaris.users.filter((user) => {
+           filtrarCartas(usuaris)
+        })
+
+        container.addEventListener("click", (e) => {
+            console.log(e.target)
+            if (e.target.dataset.tipoBtn === "Favorito") {
+                ponerFavorito(e.target.dataset.idUser)
+            }
+            if (e.target.dataset.tipoBtn === "FilterFav") {
+                
+                filterFavorito(usuaris)
+            }
+            if (e.target.dataset.tipoBtn === "Eliminar") {
+                eliminar(e.target.dataset.idUser)
+            }
+        })
+
+        function mostrarCartas(array) {
+            divArticle.innerHTML = ""
+            localStorage.setItem("usuaris", JSON.stringify(usuaris))
+            for (const usua of array) {
+                crearCarta(usua)
+            }
+        }
+        
+        function filtrarCartas(array) {
+            array = usuaris.filter((user) => {
                 let nombre = user.firstName.toLowerCase() + " " + user.lastName.toLowerCase()
                 let email = user.email.toLowerCase()
                 let buscar = inputBuscar.value.toLowerCase()
                 return nombre.includes(buscar) || email.includes(buscar)
             })
-            divArticle.innerHTML = ""
-            for (const usua of filtrados) {
-                crearCarta(usua)
+            mostrarCartas(array)
+        }
+
+        function ponerFavorito(idUser) {
+            for (const usua of usuaris) {
+                if (usua.id == idUser) {
+                    console.log("!nig")
+                    usua.favorit = !usua.favorit
+                }
             }
             
-        })
+            mostrarCartas(usuaris)
+        }
+
+        function eliminar(idUser) {
+            console.log("dentro")
+            for (const usua of usuaris) {
+                if (usua.id == idUser) {
+                    console.log("a")
+                    usuaris.splice(usuaris.indexOf(usua), 1)
+                }
+            }
+            mostrarCartas(usuaris)
+        }
         
+        function filterFavorito(array) {
+
+            array = usuaris.filter((user) => {
+                let favorit = user.favorit
+                if(favorit == true){
+                    console.log("favorit")
+                    return favorit
+                }
+            })
+            console.log(array)
+            mostrarCartas(array)
+        }
+
     } catch (error) {
         console.error("S'ha produït un error durant la petició:", error.message)
     }
 }
-function crearCarta(user){
- 
+
+function crearCarta(user) {
+
     let article = document.createElement("article");
     article.style.display = "flex"
     article.style.flexDirection = "column"
@@ -49,7 +125,7 @@ function crearCarta(user){
     let nombre = document.createElement("h2");
     nombre.innerText = user.firstName + " " + user.lastName
     article.append(nombre)
-   
+
     let divInfo = document.createElement("div");
     article.append(divInfo)
     divInfo.style.display = "flex";
@@ -58,12 +134,12 @@ function crearCarta(user){
     let divEmail = document.createElement("div");
     let strongEmail = document.createElement("strong");
     let pEmail = document.createElement("span");
-    strongEmail.textContent ="📧 Email: ";
-    pEmail.textContent = user.email; 
+    strongEmail.textContent = "📧 Email: ";
+    pEmail.textContent = user.email;
     divEmail.append(strongEmail)
     divEmail.append(pEmail)
     divInfo.append(divEmail)
-    
+
     let divTelefono = document.createElement("div");
     let strongTefono = document.createElement("strong");
     let pTelefono = document.createElement("span");
@@ -72,7 +148,7 @@ function crearCarta(user){
     divTelefono.append(strongTefono)
     divTelefono.append(pTelefono)
     divInfo.append(divTelefono)
-    
+
     let divEmpresa = document.createElement("div");
     let strongEmpresa = document.createElement("strong");
     let pEmpresa = document.createElement("span");
@@ -86,10 +162,19 @@ function crearCarta(user){
     divBotones.style.display = "flex";
     divBotones.style.gap = "20px";
     let btnFav = document.createElement("button");
+    btnFav.dataset.tipoBtn = "Favorito";
+    btnFav.dataset.idUser = user.id;
     let btnEliminar = document.createElement("button");
-    btnFav.classList.add("outline");
+    btnEliminar.dataset.tipoBtn = "Eliminar";
+    btnEliminar.dataset.idUser = user.id;
+    if (user.favorit === false) {
+        btnFav.classList.add("outline");
+        btnFav.textContent = "Afegir a favorits"
+    } else {
+        btnFav.classList.remove("outline");
+        btnFav.textContent = "Favorit ⭐"
+    }
     btnEliminar.className = "outline secondary";
-    btnFav.textContent = "Favorit ⭐"
     btnEliminar.textContent = "Eliminar ❌"
     divBotones.append(btnFav)
     divBotones.append(btnEliminar)
