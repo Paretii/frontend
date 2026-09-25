@@ -12,6 +12,7 @@ container.append(btnFilterFav);
 let btnRecuperar = document.createElement("button");
 btnRecuperar.textContent = "🔄  Restablir Contactes";
 btnRecuperar.className = "outline secondary";
+btnRecuperar.dataset.tipoBtn = "Recuperar"
 container.append(btnRecuperar);
 let divArticle = document.createElement("div");
 container.append(divArticle);
@@ -20,7 +21,7 @@ container.append(divArticle);
 async function obtenirUsuaris() {
     try {
         console.log("Iniciant petició...")
-        if (localStorage.getItem("usuaris") === null) {
+        if (localStorage.getItem("usuaris") === null || localStorage.getItem("guardar") === null) {
             const resposta = await fetch("https://dummyjson.com/users")
             if (!resposta.ok) {
                 throw new Error(`Error en la petició: ${resposta.status}`)
@@ -31,9 +32,11 @@ async function obtenirUsuaris() {
                 usuari.favorit = false
             })
             localStorage.setItem("usuaris", JSON.stringify(usuaris))
+            localStorage.setItem("guardar", JSON.stringify(usuaris))
         }
-        const usuaris = JSON.parse(localStorage.getItem("usuaris"))
-            
+        let usuaris = JSON.parse(localStorage.getItem("usuaris"))
+        let guardar = JSON.parse(localStorage.getItem("guardar"))
+        console.log(guardar)
         
         console.log(usuaris)
 
@@ -49,8 +52,20 @@ async function obtenirUsuaris() {
                 ponerFavorito(e.target.dataset.idUser)
             }
             if (e.target.dataset.tipoBtn === "FilterFav") {
-                
-                filterFavorito(usuaris)
+                if(e.target.dataset.actiu === "false"){
+                    e.target.dataset.actiu = "true"
+                    filtrarCartas()
+                }else{
+                    e.target.dataset.actiu = "false"
+                    filtrarCartas()
+                }
+
+            }
+            if (e.target.dataset.tipoBtn === "Recuperar") {
+                usuaris = JSON.parse(localStorage.getItem("guardar"))
+                inputBuscar.value = ""
+                btnFilterFav.dataset.actiu = "false"
+                mostrarCartas(usuaris)
             }
             if (e.target.dataset.tipoBtn === "Eliminar") {
                 eliminar(e.target.dataset.idUser)
@@ -64,15 +79,17 @@ async function obtenirUsuaris() {
                 crearCarta(usua)
             }
         }
-        
-        function filtrarCartas(array) {
-            array = usuaris.filter((user) => {
-                let nombre = user.firstName.toLowerCase() + " " + user.lastName.toLowerCase()
+
+        function filtrarCartas() {
+            let buscar = inputBuscar.value.toLowerCase()
+            let resultado = usuaris.filter((user) => {
+                let nombre = (user.firstName + " " + user.lastName).toLowerCase()
                 let email = user.email.toLowerCase()
-                let buscar = inputBuscar.value.toLowerCase()
-                return nombre.includes(buscar) || email.includes(buscar)
+                let coincideTexto = nombre.includes(buscar) || email.includes(buscar)
+                let coincideFav = btnFilterFav.dataset.actiu === "false" || user.favorit === true
+                return coincideTexto && coincideFav
             })
-            mostrarCartas(array)
+            mostrarCartas(resultado)
         }
 
         function ponerFavorito(idUser) {
@@ -82,34 +99,15 @@ async function obtenirUsuaris() {
                     usua.favorit = !usua.favorit
                 }
             }
-            
-            mostrarCartas(usuaris)
+            filtrarCartas()
         }
 
         function eliminar(idUser) {
-            console.log("dentro")
-            for (const usua of usuaris) {
-                if (usua.id == idUser) {
-                    console.log("a")
-                    usuaris.splice(usuaris.indexOf(usua), 1)
-                }
-            }
-            mostrarCartas(usuaris)
+            usuaris = usuaris.filter(u => u.id != idUser)
+            filtrarCartas()
         }
+                
         
-        function filterFavorito(array) {
-
-            array = usuaris.filter((user) => {
-                let favorit = user.favorit
-                if(favorit == true){
-                    console.log("favorit")
-                    return favorit
-                }
-            })
-            console.log(array)
-            mostrarCartas(array)
-        }
-
     } catch (error) {
         console.error("S'ha produït un error durant la petició:", error.message)
     }
