@@ -19,8 +19,7 @@ container.append(divArticle);
 
 
 async function obtenirUsuaris() {
-    try {
-        console.log("Iniciant petició...")
+    try {12
         if (localStorage.getItem("usuaris") === null || localStorage.getItem("guardar") === null) {
             const resposta = await fetch("https://dummyjson.com/users")
             if (!resposta.ok) {
@@ -36,9 +35,7 @@ async function obtenirUsuaris() {
         }
         let usuaris = JSON.parse(localStorage.getItem("usuaris"))
         let guardar = JSON.parse(localStorage.getItem("guardar"))
-        console.log(guardar)
-        
-        console.log(usuaris)
+
 
         mostrarCartas(usuaris)
 
@@ -47,7 +44,6 @@ async function obtenirUsuaris() {
         })
 
         container.addEventListener("click", (e) => {
-            console.log(e.target)
             if (e.target.dataset.tipoBtn === "Favorito") {
                 ponerFavorito(e.target.dataset.idUser)
             }
@@ -95,7 +91,6 @@ async function obtenirUsuaris() {
         function ponerFavorito(idUser) {
             for (const usua of usuaris) {
                 if (usua.id == idUser) {
-                    console.log("!nig")
                     usua.favorit = !usua.favorit
                 }
             }
