@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>PokéAPI Fetch Simple</title>
+  <script type="text/javascript" src="main.js" defer></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; list-style: none; padding: 0; }
+    li { background: #f0f0f0; padding: 10px; border-radius: 5px; text-transform: capitalize; }
+    #llista-pokemon li { cursor: pointer; }
+    #llista-pokemon li:hover { background: #e0e0e0; }
+    #detall { margin: 20px 0; padding: 15px; background: #fafafa; border: 1px solid #ddd; border-radius: 5px; max-width: 300px; }
+    #detall:empty { display: none; }
+    #detall h2 { text-transform: capitalize; margin-top: 0; }
+  </style>
+</head>
+<body>
+
+<input id="nom-pokemon" placeholder="Nom o ID (ex: bulbasaur o 1)">
+<button onclick="obtenirPokemon(document.getElementById('nom-pokemon').value)">Cercar</button>
+<button onclick="obtenirTotsElsPokemon()">Buscar Pokemon</button>
+
+<div id="detall"></div>
+
+<h1>Llista de tots els Pokémon</h1>
+<!-- Deixem l'estat buit d'inici -->
+<p id="estat"></p>
+<ul id="llista-pokemon"></ul>
+
+</body>
+</html>

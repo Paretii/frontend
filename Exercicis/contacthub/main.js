@@ -19,7 +19,7 @@ container.append(divArticle);
 
 
 async function obtenirUsuaris() {
-    try {12
+    try {
         if (localStorage.getItem("usuaris") === null || localStorage.getItem("guardar") === null) {
             const resposta = await fetch("https://dummyjson.com/users")
             if (!resposta.ok) {

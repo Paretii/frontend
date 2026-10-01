@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PokéDex Pro - 1a Generació</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="utils.js" defer></script>
+  <script src="main.js" defer></script>
+</head>
+
+<body>
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-title">
+      <h1>PokéDex Pro</h1>
+      <span class="gen-badge">1a Generació</span>
+    </div>
+
+    <div class="controls-wrapper">
+      <!-- Botó principal i Cercador -->
+      <div class="top-controls">
+        <button id="btn-show-all" class="btn-main">
+          <span>🌐</span> Carregar 151 Pokémon
+        </button>
+
+      </div>
+
+      <!-- EXERCICI 4: Descomentar la secció per habilitar els botons -->
+      
+      <div class="type-filter-container">
+        <button class="btn-type type-fire" data-type="fire">🔥 Foc</button>
+        <button class="btn-type type-water" data-type="water">💧 Aigua</button>
+        <button class="btn-type type-grass" data-type="grass">🌿 Planta</button>
+        <button class="btn-type type-electric" data-type="electric">⚡ Elèctric</button>
+        <button class="btn-type type-poison" data-type="poison">☠️ Verí</button>
+      </div>
+
+
+    </div>
+  </header>
+
+  <!-- Missatges d'estat (càrrega o error) -->
+  <div id="status-message" class="hidden"></div>
+
+  <!-- Layout principal de dos panells -->
+  <main class="pokedex-layout">
+
+
+    <!-- PANELL ESQUERRE: Llista de noms -->
+    <section class="panel list-panel">
+      <h2>Llista de Pokémon</h2>
+
+      <!-- EXERCICI 3: Descomentar la secció per habilitar el search box -->
+      
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+                type="text"
+                id="search-input"
+                placeholder="Filtra per nom o ID..."
+                autocomplete="off"
+        >
+      </div>
+      <br/>
+      
+      <ul id="pokemon-list" class="pokemon-list">
+        <li class="placeholder">Fes clic al botó superior per carregar la llista.</li>
+      </ul>
+    </section>
+
+
+    <!-- PANELL DRET: Detall del Pokémon seleccionat -->
+    <section class="panel detail-panel">
+      <h2>Detall del Pokémon</h2>
+      <div id="detail-card-container">
+        <p class="placeholder">Selecciona un Pokémon de la llista per veure les seves dades.</p>
+      </div>
+    </section>
+
+
+  </main>
+</div>
+</body>
+</html>
