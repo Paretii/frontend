@@ -92,17 +92,13 @@ buscadorPokemons.addEventListener("input",(e) =>{
 })
 
 btnFilters.addEventListener("click",(e) =>{
-    const boto = e.target.closest("[data-type]")
-    if (!boto) return
-    
-    btnFilters.querySelectorAll("[data-type]").forEach((b) => {
-        b.classList.remove("active")
-        b.disabled = false
-    })
-    
-    boto.classList.add("active")
-    boto.disabled = true
+    if (!e.target.dataset.type) return
 
-    carregarPokemonPerTipus(boto.dataset.type)
+    resetFiltres()
+
+    e.target.classList.add("active")
+    e.target.disabled = true
+
+    carregarPokemonPerTipus(e.target.dataset.type)
 })
 
