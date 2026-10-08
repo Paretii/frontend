@@ -70,8 +70,17 @@ function filtrarPokemonLlista(){
         
     })
 }
+function resetFiltres() {
+    btnFilters.querySelectorAll("[data-type]").forEach((b) => {
+        b.classList.remove("active")
+        b.disabled = false
+    })
+}
 
-btnMostrarTodos.addEventListener("click", obtenirTotsElsPokemons);
+btnMostrarTodos.addEventListener("click", () => {
+    resetFiltres()
+    obtenirTotsElsPokemons()
+})
 llistaPokemons.addEventListener("click",(e) =>{
    marcarItemActiu(e.target)
     if(e.target.dataset.url != null){
@@ -83,9 +92,13 @@ buscadorPokemons.addEventListener("input",(e) =>{
 })
 
 btnFilters.addEventListener("click",(e) =>{
-    if(e.target.dataset.type){
-        e.target.classList.add("active")
-        carregarPokemonPerTipus(e.target.dataset.type)
-    }
+    if (!e.target.dataset.type) return
+
+    resetFiltres()
+
+    e.target.classList.add("active")
+    e.target.disabled = true
+
+    carregarPokemonPerTipus(e.target.dataset.type)
 })
 
