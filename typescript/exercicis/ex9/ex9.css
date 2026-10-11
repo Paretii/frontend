@@ -1,0 +1,14 @@
+
+
+#rectangulo {
+    width: 400px;
+    height: 300px;
+    border: black solid 3px;
+    background-color: #01aaff
+}
+#rectangulo.actiu {
+    width: 400px;
+    height: 300px;
+    border: black solid 3px;
+    background-color: hotpink;
+}
