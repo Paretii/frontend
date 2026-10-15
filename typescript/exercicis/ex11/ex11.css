@@ -1,0 +1,23 @@
+.tab-btn{
+    height: 50px;
+    width: 150px;
+    border-radius: 0;
+}
+.tab-btn.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.tab-content{
+    display: none;
+   
+}
+.tab-content.active {
+    display: flex;
+    padding-left: 50px;
+    padding-top: 25px;
+    padding-bottom: 25px ;
+    flex-direction: column;
+    width: 500px;
+    border: black solid 1px;
+}

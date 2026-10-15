@@ -11,15 +11,7 @@ btnAnalizar.addEventListener("click", (e) => {
     }
 });
 function tupla(text) {
-    let longitud = text.length;
-    let textMayus = text.toUpperCase();
-    console.log(textMayus);
-    if (longitud > 10) {
-        return [longitud, textMayus, true];
-    }
-    else {
-        return [longitud, textMayus, false];
-    }
+    return [text.length, text.toUpperCase(), text.length > 10];
 }
 export {};
 //# sourceMappingURL=ex5.js.map

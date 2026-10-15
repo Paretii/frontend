@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="module" src="ex13.js"></script>
+</head>
+<body>
+<div style="gap: 5px; display: flex; flex-direction: column; width: 200px ">
+    <label for="fabricant">Fabricant:</label> <input type="text" id="fabricant">
+    <label for="model">Model:</label> <input type="text" id="model">
+    <label for="tipus">Tipus de vehicle:</label>
+    <select name="tipus" id="tipus">
+        <option value="bicicleta">Bicicleta</option>
+        <option value="patinet">Patinet</option>
+    </select>
+    <div style="gap: 5px; display: flex; flex-direction: row;">
+        <button id="btnGuardar">Guardar</button>
+        <button id="btnMostrar">Mostrar</button>
+    </div>
+    <output id="output"></output>
+</div>
+</body>
+</html>

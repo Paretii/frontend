@@ -9,15 +9,7 @@ btnAnalizar.addEventListener("click", (e) =>{
     }else{
         resultado.innerHTML = "<b>Caràcters: </b> " + longitud + "<br> <b>Majúscules: </b>" + textMayus + "<br> <b>Més de 10 caràcters?: </b> No"
     }
-
 })
 function tupla(text:string):[number, string, boolean]{
-    let longitud = text.length
-    let textMayus = text.toUpperCase()
-    console.log(textMayus)
-    if(longitud > 10){
-        return [longitud, textMayus ,true]
-    }else{
-        return [longitud, textMayus ,false]
-    }
+    return [text.length, text.toUpperCase() ,text.length > 10]
 }
