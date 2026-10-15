@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="module" src="ex13.js"></script>
+    <link rel="stylesheet" href="ex13.css">
 </head>
 <body>
-<div style="gap: 5px; display: flex; flex-direction: column; width: 200px ">
+<div class="container">
     <label for="fabricant">Fabricant:</label> <input type="text" id="fabricant">
     <label for="model">Model:</label> <input type="text" id="model">
     <label for="tipus">Tipus de vehicle:</label>
@@ -14,11 +15,24 @@
         <option value="bicicleta">Bicicleta</option>
         <option value="patinet">Patinet</option>
     </select>
+    <label for="tempsCarrega" id="carrega">Temps de carrega: <input type="number" id="tempsCarrega"></label>
     <div style="gap: 5px; display: flex; flex-direction: row;">
         <button id="btnGuardar">Guardar</button>
         <button id="btnMostrar">Mostrar</button>
     </div>
-    <output id="output"></output>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Tipus</th>
+            <th>Fabricant</th>
+            <th>Model</th>
+            <th>Temps de carrega</th>
+        </tr>
+        </thead>
+        <tbody id="tbodyVehicles">
+
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
