@@ -54,9 +54,9 @@ btnGuardar.addEventListener("click", () => {
 btnMostrar.addEventListener("click", () => {
     tbodyVehicles.innerHTML = ""
     vehicles.forEach((v: Vehicle) => {
-        let tr = document.createElement("tr");
-        let tdTipus = document.createElement("td");
-        let tdTempsCarrega = document.createElement("td");
+        let tr = document.createElement("tr") as HTMLTableRowElement;
+        let tdTipus = document.createElement("td")  as HTMLTableCellElement;
+        let tdTempsCarrega = document.createElement("td") as HTMLTableCellElement;
         if("tempsCarrega" in v) {
             tdTipus.textContent = "Patinet";
             tdTempsCarrega.textContent = v.tempsCarrega + ""
