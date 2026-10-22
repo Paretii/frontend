@@ -10,8 +10,13 @@ btnRegistrar.addEventListener("click", (event) => {
 });
 btnEntrada.addEventListener("click", (event) => {
     let nombre = document.getElementById("producte").value;
-    inventari.set(nombre, inventari.get(nombre) + 1);
-    resultado.innerText = "Producte: " + nombre + " actualitzat. Estoc actual: " + inventari.get(nombre) + " unitats de producte.";
+    if (inventari.get(nombre) != null) {
+        inventari.set(nombre, inventari.get(nombre) + 1);
+        resultado.innerText = "Producte: " + nombre + " actualitzat. Estoc actual: " + inventari.get(nombre) + " unitats de producte.";
+    }
+    else {
+        resultado.innerText = "Producte: " + nombre + " no registrat ";
+    }
 });
 btnInventari.addEventListener("click", (event) => {
     console.log(inventari.keys());

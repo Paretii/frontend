@@ -3,7 +3,7 @@ let btnEntrada = document.getElementById("entrada") as HTMLButtonElement;
 let btnInventari = document.getElementById("inventari") as HTMLButtonElement;
 let resultado = document.getElementById("resultat") as HTMLParagraphElement;
 
-let inventari: Map<string,number> = new Map();
+let inventari:Map<string,number> = new Map();
 
 btnRegistrar.addEventListener("click", (event) => {
     let nombre: string  = (document.getElementById("producte") as HTMLInputElement).value
@@ -12,8 +12,12 @@ btnRegistrar.addEventListener("click", (event) => {
 })
 btnEntrada.addEventListener("click", (event) => {
     let nombre: string  = (document.getElementById("producte") as HTMLInputElement).value
-    inventari.set(nombre,(inventari.get(nombre) as number)+1);
-    resultado.innerText = "Producte: " + nombre + " actualitzat. Estoc actual: " + inventari.get(nombre) + " unitats de producte.";
+    if(inventari.get(nombre) != null) {
+        inventari.set(nombre, (inventari.get(nombre) as number) + 1);
+        resultado.innerText = "Producte: " + nombre + " actualitzat. Estoc actual: " + inventari.get(nombre) + " unitats de producte.";
+    }else{
+        resultado.innerText = "Producte: " + nombre + " no registrat "
+    }
 })
 btnInventari.addEventListener("click", (event) => {
     console.log(inventari.keys())
