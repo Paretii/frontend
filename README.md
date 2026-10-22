@@ -82,8 +82,8 @@ Ejercicios pequeños, cada uno con su `HTML` + `TS`, que van subiendo de nivel p
 
 ```bash
 cd typescript
-npm install        # instala TypeScript y ts-node
-npx tsc            # compila todos los .ts a .js
+npm install -g typescript
+npm install ts-node --save-dev
 ```
 
 Después basta con abrir el `.html` del ejercicio en el navegador (o con Live Server).
