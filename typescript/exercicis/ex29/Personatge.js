@@ -1,12 +1,25 @@
+import { nombreAleatori } from './utils.js';
 export class Personatge {
-    Nom;
-    Atac = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
-    PuntaVida = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
+    _nom;
+    _atac = nombreAleatori(1, 10);
+    _puntsVida = nombreAleatori(1, 50);
     constructor(nom) {
-        this.Nom = nom;
+        this._nom = nom;
+    }
+    get nom() {
+        return this._nom;
+    }
+    get atac() {
+        return this._atac;
+    }
+    get puntsVida() {
+        return this._puntsVida;
+    }
+    set puntsVida(value) {
+        this._puntsVida = value;
     }
     atacar() {
-        return "atac basic";
+        return `${this._nom} ataca (atac: ${this._atac}).`;
     }
 }
 //# sourceMappingURL=Personatge.js.map

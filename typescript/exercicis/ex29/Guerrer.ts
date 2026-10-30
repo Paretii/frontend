@@ -1,12 +1,18 @@
 import {Personatge} from "./Personatge.js";
 
 export class Guerrer extends Personatge{
-    arma:string
+    private readonly _arma:string
     constructor(nom:string, arma:string){
         super(nom)
-        this.arma = arma
+        this._arma = arma
     }
-    atacar(): string {
-        return "hola";
+
+    get arma(): string {
+        return this._arma;
     }
+
+    override atacar(): string {
+        return `${this.nom} (Guerrer) ataca amb l'arma ${this._arma} (atac: ${this.atac}).`;
+    }
+
 }

@@ -5,6 +5,7 @@
     "sourceMap": true,
     "strict": true,
     "moduleDetection": "force",
+    "noImplicitOverride": true,
     "rootDir": "./"          // <-- Permet que l'arrel de codi font sigui qualsevol lloc del projecte
   },
   "exclude": [
