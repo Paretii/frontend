@@ -18,9 +18,13 @@ export class Personatge{
         return this._puntsVida;
     }
     set puntsVida(value: number) {
-        this._puntsVida = value;
+        if(value < 0){
+            this._puntsVida = 0
+        }else{
+            this._puntsVida = value;
+        }
     }
-    public atacar(){
+    public atacar():string{
         return `${this._nom} ataca (atac: ${this._atac}).`;
     }
 }

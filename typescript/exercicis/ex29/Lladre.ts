@@ -10,6 +10,6 @@ export class Lladre extends Personatge{
         return this._boti;
     }
     override atacar(): string {
-        return  this.nom + " es un mag amb " + this._boti + " i te " + this.atac + " de atac"
+        return  this.nom + " es un lladre amb " + this._boti + " i te " + this.atac + " de atac"
     }
 }

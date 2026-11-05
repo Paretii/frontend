@@ -9,7 +9,7 @@ export class Lladre extends Personatge {
         return this._boti;
     }
     atacar() {
-        return this.nom + " es un mag amb " + this._boti + " i te " + this.atac + " de atac";
+        return this.nom + " es un lladre amb " + this._boti + " i te " + this.atac + " de atac";
     }
 }
 //# sourceMappingURL=Lladre.js.map

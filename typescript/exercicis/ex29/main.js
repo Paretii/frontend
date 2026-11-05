@@ -51,6 +51,14 @@ btnIniciar.addEventListener("click", () => {
             p.innerHTML = "El jugador 1 a fallat <br>";
             divRegistre.appendChild(p);
         }
+        if (jugador2.puntsVida <= 0) {
+            let p = document.createElement("p");
+            p.innerHTML = jugador1.nom + " ha guanyat la partida";
+            divRegistre.appendChild(p);
+            divJugador2.innerHTML = actualizarInfo(jugador2);
+            return;
+        }
+        divJugador2.innerHTML = actualizarInfo(jugador2);
         if (utils.nombreAleatori(1, 2) === 1) {
             let p = document.createElement("p");
             p.innerHTML = jugador2.atacar() + "<br>";
@@ -64,14 +72,12 @@ btnIniciar.addEventListener("click", () => {
         }
         if (jugador1.puntsVida <= 0) {
             let p = document.createElement("p");
-            p.innerHTML = "El jugador 2 ha guanyat la partida";
+            p.innerHTML = jugador2.nom + " ha guanyat la partida";
             divRegistre.appendChild(p);
+            divJugador1.innerHTML = actualizarInfo(jugador1);
+            return;
         }
-        else if (jugador2.puntsVida <= 0) {
-            let p = document.createElement("p");
-            p.innerHTML = "El jugador 1 ha guanyat la partida";
-            divRegistre.appendChild(p);
-        }
+        divJugador1.innerHTML = actualizarInfo(jugador1);
     }
 });
 //Funciones utiles
