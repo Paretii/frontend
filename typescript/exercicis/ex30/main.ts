@@ -110,11 +110,4 @@ function turno(atacant:Personatge, defensor:Personatge){
     divRegistre.innerHTML += `<p>A ${defensor.nom} li queden ${defensor.puntsVida} punts de vida</p>`
 }
 
-function comprobarFinal(vivo:Personatge,muerto:Personatge):boolean{
-    if(muerto.puntsVida <= 0){
 
-        return true
-    }else{
-        return false
-    }
-}

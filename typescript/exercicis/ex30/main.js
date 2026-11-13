@@ -90,12 +90,4 @@ function turno(atacant, defensor) {
     }
     divRegistre.innerHTML += `<p>A ${defensor.nom} li queden ${defensor.puntsVida} punts de vida</p>`;
 }
-function comprobarFinal(vivo, muerto) {
-    if (muerto.puntsVida <= 0) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
 //# sourceMappingURL=main.js.map
